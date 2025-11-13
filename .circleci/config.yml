@@ -22,10 +22,10 @@ jobs:
       - run:
           name: Run Testim Tests on Selenium Grid (ngrok)
           command: |
-            npx testim --token "$TESTIM_TOKEN" \
-                       --project "$TESTIM_PROJECT_ID" \
-                       --user "$TESTIM_USER_ID" \
-                       --host "$SELENIUM_GRID_URL" \
+            npx testim --token "Ia1z0ZWDuObiRZXALdgPhy2gxgj2CyHpAaO7EXjBFQenPceBlu" \
+                       --project "usw2u3yVOkPZQmM1lXQTrNjh" \
+                       --user "fUKwQdgzPv7D7IA4rAEn" \
+                       --host "https://pretensive-rhonda-indeterminably.ngrok-free.dev/wd/hub" \
                        --browser chrome \
                        --suite "Object_Detection" \
                        --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
