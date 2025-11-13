@@ -2,32 +2,33 @@ version: 2.1
 
 jobs:
   build:
-    environment:
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-
     docker:
       - image: cimg/node:18.17-browsers
+
+    environment:
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
 
     steps:
       - checkout
 
       - run:
-          name: Install Testim CLI
-          command: npm install -g @testim/testim-cli
+          name: Install Testim CLI (local install)
+          command: |
+            npm install @testim/testim-cli
 
       - run:
           name: Prepare Report Directory
           command: mkdir -p $CIRCLE_TEST_REPORTS/testim/
 
       - run:
-          name: Run Testim Tests on Grid (Latest CLI)
+          name: Run Testim Tests on Grid (via npx)
           command: |
-            testim --token "$TESTIM_TOKEN" \
-                   --project "$TESTIM_PROJECT_ID" \
-                   --user "$TESTIM_USER_ID" \
-                   --mode "grid" \
-                   --suite "Object_Detection" \
-                   --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
+            npx testim --token "$TESTIM_TOKEN" \
+                       --project "$TESTIM_PROJECT_ID" \
+                       --user "$TESTIM_USER_ID" \
+                       --mode "grid" \
+                       --suite "Object_Detection" \
+                       --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
 
       - store_artifacts:
           path: /tmp/circleci-test-results
