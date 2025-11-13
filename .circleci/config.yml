@@ -22,13 +22,13 @@ jobs:
       - run:
           name: Run Testim Tests on Selenium Grid (ngrok)
           command: |
-            npx testim run --token "$TESTIM_TOKEN" \
-                           --project "$TESTIM_PROJECT_ID" \
-                           --user "$TESTIM_USER_ID" \
-                           --host "$SELENIUM_GRID_URL" \
-                           --browser chrome \
-                           --suite "Object_Detection" \
-                           --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
+            npx testim --token "$TESTIM_TOKEN" \
+                       --project "$TESTIM_PROJECT_ID" \
+                       --user "$TESTIM_USER_ID" \
+                       --host "$SELENIUM_GRID_URL" \
+                       --browser chrome \
+                       --suite "Object_Detection" \
+                       --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
 
       - store_artifacts:
           path: /tmp/circleci-test-results
