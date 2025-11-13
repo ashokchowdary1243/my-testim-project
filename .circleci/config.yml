@@ -6,24 +6,26 @@ jobs:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
 
     docker:
-      - image: testimio/docker-cli
+      - image: cimg/node:18.17-browsers
 
     steps:
       - checkout
+
+      - run:
+          name: Install Testim CLI
+          command: npm install -g @testim/testim-cli
 
       - run:
           name: Prepare Report Directory
           command: mkdir -p $CIRCLE_TEST_REPORTS/testim/
 
       - run:
-          name: Run Testim Tests on Grid
+          name: Run Testim Tests on Grid (Latest CLI)
           command: |
             testim --token "$TESTIM_TOKEN" \
                    --project "$TESTIM_PROJECT_ID" \
                    --user "$TESTIM_USER_ID" \
-                   --grid "Testim-Grid" \
                    --mode "grid" \
-                   --branch "master" \
                    --suite "Object_Detection" \
                    --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
 
