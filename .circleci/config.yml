@@ -2,22 +2,21 @@ version: 2.1
 
 jobs:
   build:
-    docker:
-      - image: testimio/docker-cli
-
     environment:
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+
+    docker:
+      - image: testimio/docker-cli
 
     steps:
       - checkout
 
       - run:
-          name: Prepare test report dir
-          command: |
-            mkdir -p $CIRCLE_TEST_REPORTS/testim/
+          name: Prepare Report Directory
+          command: mkdir -p $CIRCLE_TEST_REPORTS/testim/
 
       - run:
-          name: Run Testim on Grid
+          name: Run Testim Tests on Grid
           command: |
             testim --token "$TESTIM_TOKEN" \
                    --project "$TESTIM_PROJECT_ID" \
@@ -26,11 +25,11 @@ jobs:
                    --mode "grid" \
                    --branch "master" \
                    --suite "Object_Detection" \
-                   --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml" \
-                   --report-format junit
+                   --report-file "$CIRCLE_TEST_REPORTS/testim/results.xml"
 
       - store_artifacts:
           path: /tmp/circleci-test-results
+
       - store_test_results:
           path: /tmp/circleci-test-results
 
